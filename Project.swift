@@ -48,5 +48,10 @@ let project = Project(
             resources: [],
             dependencies: [.target(name: "YettelHomework")]
         ),
+    ],
+    resourceSynthesizers: [
+        .assets(),
+        .fonts(),
+        .strings()
     ]
 )

@@ -1,0 +1,32 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "Hello Cart!" : {
+
+    },
+    "Hello Counties!" : {
+
+    },
+    "Hello Resul!" : {
+
+    },
+    "main_buy_button" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Buy"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vásárlás"
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}

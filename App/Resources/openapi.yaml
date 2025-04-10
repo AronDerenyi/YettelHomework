@@ -20,7 +20,7 @@ paths:
                 type: object
                 properties:
                   requestId:
-                    type: string
+                    type: integer
                     example: 12345678
                   statusCode:
                     type: string

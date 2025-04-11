@@ -4,6 +4,7 @@ struct VignettesView: View {
 
     let vignettes: [Vignette]
     @Binding var selected: Int?
+    let purchaseEnabled: Bool
     let purchase: () -> Void
 
     var body: some View {
@@ -21,7 +22,7 @@ struct VignettesView: View {
             Spacer().frame(height: 16.0)
             YettelButton(
                 key: "main_purchase_button",
-                disabled: selected == nil || selected ?? 0 < vignettes.count
+                disabled: !purchaseEnabled
             ) {
                 purchase()
             }

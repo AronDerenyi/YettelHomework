@@ -21,7 +21,8 @@ public struct MainScreen: View {
                 Loader(viewModel.vignettes) { vignettes in
                     VignettesView(
                         vignettes: vignettes,
-                        selected: $viewModel.selectedVignette
+                        selected: $viewModel.selectedVignette,
+                        purchaseEnabled: viewModel.purchaseEnabled
                     ) {
                         viewModel.purchaseClicked()
                     }
@@ -42,10 +43,7 @@ public struct MainScreen: View {
             .padding(.all, 16.0)
         }
         .background(YettelHomeworkAsset.Assets.background.swiftUIColor)
-        .toolbarBackgroundVisibility(.visible)
-        .navigationTitle("test")
-        .navigationBarTitleDisplayMode(.inline)
-        .toolbarBackground(YettelHomeworkAsset.Assets.accent.swiftUIColor)
+        .yettelToolbar()
         .task {
             await viewModel.load()
         }

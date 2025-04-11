@@ -1,7 +1,7 @@
 import SwiftUI
 
 enum Route: Equatable, Hashable {
-    case counties([CountyVignette])
+    case counties(vehicle: VehicleInfo, countyVignettes: [CountyVignette])
     case cart
     case result
 }
@@ -9,8 +9,8 @@ enum Route: Equatable, Hashable {
 extension Route {
     var view: AnyView {
         switch self {
-        case .counties:
-            return AnyView(CountiesScreen())
+        case .counties(let vehicle, let countyVignettes):
+            return AnyView(CountiesScreen(vehicle: vehicle, countyVignettes: countyVignettes))
         case .cart:
             return AnyView(CartScreen())
         case .result:

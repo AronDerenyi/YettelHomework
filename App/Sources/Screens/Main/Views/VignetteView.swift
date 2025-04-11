@@ -9,19 +9,16 @@ struct VignetteView: View {
     var body: some View {
         HStack(spacing: 16.0) {
             ZStack {
-                Circle()
-                    .stroke(YettelHomeworkAsset.Assets.light.swiftUIColor, lineWidth: 2.0)
-                    .frame(width: 28.0, height: 28.0)
                 if selected {
-                    Circle()
-                        .fill(YettelHomeworkAsset.Assets.primary.swiftUIColor)
-                        .frame(width: 16.0, height: 16.0)
+                    YettelHomeworkAsset.Assets.radioOn.swiftUIImage
+                } else {
+                    YettelHomeworkAsset.Assets.radioOff.swiftUIImage
                 }
             }
 
             HStack(spacing: 0.0) {
                 YettelText(
-                    Text("\(vignette.category) - ") +
+                    Text(vignette.category + " - ") +
                     Text(vignette.type.localizedStringKey)
                 )
                 Spacer()
@@ -36,7 +33,7 @@ struct VignetteView: View {
                 .stroke(
                     selected ?
                     YettelHomeworkAsset.Assets.primary.swiftUIColor :
-                    YettelHomeworkAsset.Assets.light.swiftUIColor,
+                    YettelHomeworkAsset.Assets.border.swiftUIColor,
                     lineWidth: 2.0
                 )
         )

@@ -7,8 +7,17 @@ class MainViewModel: ObservableObject {
     @Injected private var api: API
 
     @Published var vehicle: VehicleInfo?
+
     @Published var vignettes: [Vignette]?
     @Published var selectedVignette: Int?
+
+    var purchaseEnabled: Bool {
+        guard let vignettes, let selectedVignette else {
+            return false
+        }
+
+        return selectedVignette >= 0 && selectedVignette < vignettes.count
+    }
 
     var countiesLoaded: Bool {
         countyVignettes != nil
@@ -32,7 +41,12 @@ class MainViewModel: ObservableObject {
     }
 
     func purchaseClicked() {
-        guard let vignettes, let selectedVignette, selectedVignette >= vignettes.count else {
+        guard
+            let vignettes,
+            let selectedVignette,
+            selectedVignette >= 0,
+            selectedVignette < vignettes.count
+        else {
             return
         }
 
@@ -41,10 +55,13 @@ class MainViewModel: ObservableObject {
     }
 
     func countyVignettesClicked() {
-        guard let countyVignettes else {
+        guard
+            let vehicle,
+            let countyVignettes
+        else {
             return
         }
 
-        navigator.push(.counties(countyVignettes))
+        navigator.push(.counties(vehicle: vehicle, countyVignettes: countyVignettes))
     }
 }

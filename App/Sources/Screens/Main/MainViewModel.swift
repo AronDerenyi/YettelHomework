@@ -42,6 +42,7 @@ class MainViewModel: ObservableObject {
 
     func purchaseClicked() {
         guard
+            let vehicle,
             let vignettes,
             let selectedVignette,
             selectedVignette >= 0,
@@ -51,7 +52,10 @@ class MainViewModel: ObservableObject {
         }
 
         let vignette = vignettes[selectedVignette]
-        navigator.push(.cart/*TODO: (vignette)*/)
+        navigator.push(.cart(CartParams(
+            vehicle: vehicle,
+            item: .vignette(vignette)
+        )))
     }
 
     func countyVignettesClicked() {
@@ -62,6 +66,9 @@ class MainViewModel: ObservableObject {
             return
         }
 
-        navigator.push(.counties(vehicle: vehicle, countyVignettes: countyVignettes))
+        navigator.push(.counties(CountiesParams(
+            vehicle: vehicle,
+            countyVignettes: countyVignettes
+        )))
     }
 }

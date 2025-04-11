@@ -4,10 +4,10 @@ struct CountiesScreen: View {
 
     @StateObject private var viewModel: CountiesViewModel
 
-    init(vehicle: VehicleInfo, countyVignettes: [CountyVignette]) {
+    init(params: CountiesParams) {
         _viewModel = StateObject(wrappedValue: CountiesViewModel(
-            vehicle: vehicle,
-            countyVignettes: countyVignettes
+            vehicle: params.vehicle,
+            countyVignettes: params.countyVignettes
         ))
     }
 

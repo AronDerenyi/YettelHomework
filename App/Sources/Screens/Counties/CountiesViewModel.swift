@@ -36,7 +36,10 @@ class CountiesViewModel: ObservableObject {
         let selectedVignettes = countyVignettes.filter { selectedIds.contains($0.id) }
 
         if !selectedVignettes.isEmpty {
-            navigator.push(.cart)
+            navigator.push(.cart(CartParams(
+                vehicle: vehicle,
+                item: .countyVignettes(selectedVignettes)
+            )))
         }
     }
 }

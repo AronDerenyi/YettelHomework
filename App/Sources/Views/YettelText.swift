@@ -46,6 +46,10 @@ struct YettelText: View {
         switch style {
         case .tiny:
             return .system(size: 12.0, weight: .thin)
+        case .small:
+            return .system(size: 14.0, weight: .light)
+        case .smallThin:
+            return .system(size: 14.0, weight: .thin)
         case .regular:
             return .system(size: 16.0, weight: .light)
         case .bold:
@@ -73,6 +77,8 @@ struct YettelText: View {
 
 enum YettelTextStyle {
     case tiny
+    case small
+    case smallThin
     case regular
     case bold
     case thin

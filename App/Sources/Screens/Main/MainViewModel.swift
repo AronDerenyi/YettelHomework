@@ -35,7 +35,6 @@ class MainViewModel: ObservableObject {
         {
             vehicle = vehicleInfo
             vignettes = highwayInfo.vignettes
-            selectedVignette = nil
             countyVignettes = highwayInfo.countyVignettes
         }
     }
@@ -52,7 +51,7 @@ class MainViewModel: ObservableObject {
         }
 
         let vignette = vignettes[selectedVignette]
-        navigator.push(.cart(CartParams(
+        navigator.push(.cart(.init(
             vehicle: vehicle,
             item: .vignette(vignette)
         )))
@@ -66,7 +65,7 @@ class MainViewModel: ObservableObject {
             return
         }
 
-        navigator.push(.counties(CountiesParams(
+        navigator.push(.counties(.init(
             vehicle: vehicle,
             countyVignettes: countyVignettes
         )))

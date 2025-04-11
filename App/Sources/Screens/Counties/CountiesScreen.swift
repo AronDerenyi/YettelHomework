@@ -5,10 +5,7 @@ struct CountiesScreen: View {
     @StateObject private var viewModel: CountiesViewModel
 
     init(params: CountiesParams) {
-        _viewModel = StateObject(wrappedValue: CountiesViewModel(
-            vehicle: params.vehicle,
-            countyVignettes: params.countyVignettes
-        ))
+        _viewModel = StateObject(wrappedValue: .init(params))
     }
 
     public var body: some View {
@@ -30,11 +27,11 @@ struct CountiesScreen: View {
 }
 
 #Preview {
-    CountiesScreen(
+    CountiesScreen(params: CountiesParams(
         vehicle: VehicleInfo(
             name: "John Doe",
             plate: "ABC-123"
         ),
         countyVignettes: []
-    )
+    ))
 }

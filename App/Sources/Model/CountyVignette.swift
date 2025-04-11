@@ -3,4 +3,5 @@ struct CountyVignette: Equatable, Hashable {
     let name: String
     let cost: Float
     let fee: Float
+    let vehicleCategory: String
 }

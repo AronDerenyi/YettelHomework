@@ -23,10 +23,10 @@ class CountiesViewModel: ObservableObject {
             .isEmpty
     }
 
-    init(vehicle: VehicleInfo, countyVignettes: [CountyVignette]) {
-        self.vehicle = vehicle
-        self.countyVignettes = countyVignettes
-        self.counties = countyVignettes.map { vignette in
+    init(_ params: CountiesParams) {
+        self.vehicle = params.vehicle
+        self.countyVignettes = params.countyVignettes
+        self.counties = params.countyVignettes.map { vignette in
             County(id: vignette.id, name: vignette.name, cost: vignette.cost, selected: false)
         }
     }
@@ -36,7 +36,7 @@ class CountiesViewModel: ObservableObject {
         let selectedVignettes = countyVignettes.filter { selectedIds.contains($0.id) }
 
         if !selectedVignettes.isEmpty {
-            navigator.push(.cart(CartParams(
+            navigator.push(.cart(.init(
                 vehicle: vehicle,
                 item: .countyVignettes(selectedVignettes)
             )))

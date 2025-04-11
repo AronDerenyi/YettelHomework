@@ -51,20 +51,28 @@ extension ClientAPI: API {
             return .failure(.general)
         }
     }
-    
-    func postHighwayOrder() async -> Result<(), PostError> {
-        guard let response = try? await client.postHighwayOrder(body: .json(.init(highwayOrders: [.init(_type: "", category: "", cost: 0.0)]))) else {
+
+    func postHighwayOrder(vignette: Vignette) async -> Result<(), PostError> {
+        await postHighwayOrder(body: .fromVignette(vignette))
+    }
+
+    func postHighwayOrder(countyVignettes: [CountyVignette]) async -> Result<(), PostError> {
+        await postHighwayOrder(body: .fromCountyVignettes(countyVignettes))
+    }
+
+    private func postHighwayOrder(body: Operations.postHighwayOrder.Input.Body) async -> Result<(), PostError> {
+        guard let response = try? await client.postHighwayOrder(body: body) else {
             return .failure(.server)
         }
 
         switch response {
-        case .ok(_):
+        case .ok:
             return .success(())
-        case .badRequest(_):
+        case .badRequest:
             return .failure(.badRequest)
-        case .notFound(_):
+        case .notFound:
             return .failure(.notFound)
-        case .undocumented(statusCode: let statusCode, _):
+        case .undocumented:
             return .failure(.general)
         }
     }
@@ -102,28 +110,25 @@ extension HighwayInfo {
 
                 let cost = jsonVignette.cost ?? 0.0
                 let fee = jsonVignette.trxFee ?? 0.0
-                switch jsonType {
-                case "DAY":
-                    vignettes.append(Vignette(category: category, type: .day, cost: cost, fee: fee))
-                case "WEEK":
-                    vignettes.append(Vignette(category: category, type: .week, cost: cost, fee: fee))
-                case "MONTH":
-                    vignettes.append(Vignette(category: category, type: .month, cost: cost, fee: fee))
-                case "YEAR":
-                    vignettes.append(Vignette(category: category, type: .year, cost: cost, fee: fee))
-                case let id:
-                    if let name = counties[id] {
-                        countyVignettes.append(CountyVignette(
-                            id: id,
-                            name: name,
-                            cost: cost,
-                            fee: fee
-                        ))
-                    }
+                if let type = VignetteType.fromString(jsonType) {
+                    vignettes.append(Vignette(
+                        type: type,
+                        cost: cost,
+                        fee: fee,
+                        category: category,
+                        vehicleCategory: vehicleCategory
+                    ))
+                } else if let name = counties[jsonType] {
+                    countyVignettes.append(CountyVignette(
+                        id: jsonType,
+                        name: name,
+                        cost: cost,
+                        fee: fee,
+                        vehicleCategory: vehicleCategory
+                    ))
                 }
             }
         }
-        //payload?.vehicleCategories[0].(category, vignetteCategory, name.(en, hu))
 
         return Self.init(
             vignettes: vignettes,
@@ -132,8 +137,59 @@ extension HighwayInfo {
     }
 }
 
+extension VignetteType {
+    static func fromString(_ string: String) -> Self? {
+        switch string {
+        case "DAY":
+            .day
+        case "WEEK":
+            .week
+        case "MONTH":
+            .month
+        case "YEAR":
+            .year
+        default:
+            nil
+        }
+    }
+}
+
 extension VehicleInfo {
     static func fromJson(_ json: Operations.getVehicleInfo.Output.Ok.Body.jsonPayload) -> Self {
         return Self.init(name: json.name ?? "", plate: json.plate ?? "")
+    }
+}
+
+extension Operations.postHighwayOrder.Input.Body {
+    static func fromVignette(_ vignette: Vignette) -> Self {
+        let type: String
+        switch vignette.type {
+        case .day:
+            type = "DAY"
+        case .week:
+            type = "WEEK"
+        case .month:
+            type = "MONTH"
+        case .year:
+            type = "YEAR"
+        }
+
+        return .json(.init(highwayOrders: [
+            .init(
+                _type: type,
+                category: vignette.vehicleCategory,
+                cost: vignette.cost + vignette.fee
+            )
+        ]))
+    }
+
+    static func fromCountyVignettes(_ countyVignettes: [CountyVignette]) -> Self {
+        return .json(.init(highwayOrders: countyVignettes.map { countyVignette in
+            .init(
+                _type: countyVignette.id,
+                category: countyVignette.vehicleCategory,
+                cost: countyVignette.cost + countyVignette.fee
+            )
+        }))
     }
 }

@@ -1,6 +1,9 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "%@ - " : {
+
+    },
     "Hello Cart!" : {
 
     },
@@ -10,19 +13,121 @@
     "Hello Resul!" : {
 
     },
-    "main_buy_button" : {
+    "main_county_vignettes_button" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Buy"
+            "value" : "Yearly county vignettes"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Éves vármegyei matricák"
+          }
+        }
+      }
+    },
+    "main_purchase_button" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Purchase"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Vásárlás"
+          }
+        }
+      }
+    },
+    "main_vignette_type_day" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "daily (1 day)"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "napi (1 napos)"
+          }
+        }
+      }
+    },
+    "main_vignette_type_month" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "monthly"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "havi"
+          }
+        }
+      }
+    },
+    "main_vignette_type_week" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "weekly (10 days)"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "heti (10 napos)"
+          }
+        }
+      }
+    },
+    "main_vignette_type_year" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "yearly"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "éves"
+          }
+        }
+      }
+    },
+    "main_vignettes_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Country vignettes"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Országos matricák"
           }
         }
       }

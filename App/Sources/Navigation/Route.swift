@@ -1,7 +1,7 @@
 import SwiftUI
 
-enum Route {
-    case counties
+enum Route: Equatable, Hashable {
+    case counties([CountyVignette])
     case cart
     case result
 }

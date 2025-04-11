@@ -1,4 +1,4 @@
-struct CountyVignette {
+struct CountyVignette: Equatable, Hashable {
     let id: String
     let name: String
     let cost: Float

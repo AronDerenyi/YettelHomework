@@ -510,6 +510,23 @@
           }
         }
       }
+    },
+    "title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "E-matrica"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "E-matrica"
+          }
+        }
+      }
     }
   },
   "version" : "1.0"

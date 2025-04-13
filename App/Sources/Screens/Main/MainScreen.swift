@@ -42,8 +42,8 @@ public struct MainScreen: View {
             }
             .padding(.all, 16.0)
         }
-        .background(YettelHomeworkAsset.Assets.background.swiftUIColor)
         .yettelToolbar()
+        .background(YettelHomeworkAsset.Assets.background.swiftUIColor)
         .task {
             await viewModel.load()
         }

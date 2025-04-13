@@ -21,7 +21,7 @@ struct CountiesScreen: View {
                 viewModel.nextClicked()
             }
         }
-        .yettelToolbar()
+        .yettelToolbar(showBackButton: true)
         .background(YettelHomeworkAsset.Assets.surface.swiftUIColor)
     }
 }

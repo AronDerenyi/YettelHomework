@@ -35,7 +35,8 @@ struct CartScreen: View {
                 viewModel.cancelClicked()
             }
         }
-        .yettelToolbar()
+        .yettelToolbar(showBackButton: true)
+        .background(YettelHomeworkAsset.Assets.surface.swiftUIColor)
         .fullScreenCover(isPresented: $viewModel.showResult) {
             ResultView {
                 viewModel.resultDismissed()

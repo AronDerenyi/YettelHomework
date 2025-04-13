@@ -1,10 +1,10 @@
 import SwiftUI
 
 @propertyWrapper
-struct Injected<T> {
-    var wrappedValue: T
+public struct Injected<T> {
+    public var wrappedValue: T
 
-    init() {
-        self.wrappedValue = inject()
+    public init() {
+        self.wrappedValue = Injection.shared.inject()
     }
 }

@@ -1,9 +1,14 @@
-struct CartParams: Equatable, Hashable {
-    let vehicle: VehicleInfo
-    let item: CartParamsItem
+public struct CartParams: Equatable, Hashable {
+    public let vehicle: VehicleInfo
+    public let item: CartParamsItem
+
+    public init(vehicle: VehicleInfo, item: CartParamsItem) {
+        self.vehicle = vehicle
+        self.item = item
+    }
 }
 
-enum CartParamsItem: Equatable, Hashable {
+public enum CartParamsItem: Equatable, Hashable {
     case vignette(Vignette)
     case countyVignettes([CountyVignette])
 }

@@ -1,13 +1,13 @@
 import Foundation
 
-enum GetError: Error {
+public enum GetError: Error {
     case notFound
     case format
     case server
     case general
 }
 
-enum PostError: Error {
+public enum PostError: Error {
     case badRequest
     case notFound
     case server
@@ -16,7 +16,7 @@ enum PostError: Error {
 
 extension GetError: LocalizedError {
 
-    var errorDescription: String? {
+    public var errorDescription: String? {
         switch self {
         case .notFound:
             NSLocalizedString("error_not_found_title", comment: "")
@@ -32,7 +32,7 @@ extension GetError: LocalizedError {
 
 extension PostError: LocalizedError {
 
-    var errorDescription: String? {
+    public var errorDescription: String? {
         switch self {
         case .badRequest:
             NSLocalizedString("error_bad_request_title", comment: "")

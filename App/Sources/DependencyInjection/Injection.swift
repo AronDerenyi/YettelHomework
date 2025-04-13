@@ -1,25 +1,34 @@
 import Swinject
 
-fileprivate var container: Container = Container()
+public final class Injection {
 
-func register<Service>(
-    _ serviceType: Service.Type,
-    factory: @escaping (Resolver) -> Service
-) {
-    container
-        .register(serviceType, factory: factory)
-        .inObjectScope(.container)
-}
+    public static let shared = Injection()
 
-func register<Service>(
-    _ serviceType: Service.Type,
-    factory: @escaping () -> Service
-) {
-    container
-        .register(serviceType) { _ in factory() }
-        .inObjectScope(.container)
-}
+    private let container: Container = Container()
 
-func inject<Service>() -> Service {
-    container.resolve(Service.self)!
+    private init() {
+
+    }
+
+    public func register<Service>(
+        _ serviceType: Service.Type,
+        factory: @escaping (Resolver) -> Service
+    ) {
+        container
+            .register(serviceType, factory: factory)
+            .inObjectScope(.container)
+    }
+
+    public func register<Service>(
+        _ serviceType: Service.Type,
+        factory: @escaping () -> Service
+    ) {
+        container
+            .register(serviceType) { _ in factory() }
+            .inObjectScope(.container)
+    }
+
+    public func inject<Service>() -> Service {
+        container.resolve(Service.self)!
+    }
 }

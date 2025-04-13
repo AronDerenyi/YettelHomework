@@ -7,12 +7,12 @@ class MainViewModel: ObservableObject {
     @Injected private var navigator: Navigator
     @Injected private var errorHandler: ErrorHandler
 
-    @Published var vehicle: VehicleInfo?
+    @Published public var vehicle: VehicleInfo?
 
-    @Published var vignettes: [Vignette]?
-    @Published var selectedVignette: Int?
+    @Published public var vignettes: [Vignette]?
+    @Published public var selectedVignette: Int?
 
-    var purchaseEnabled: Bool {
+    public var purchaseEnabled: Bool {
         guard let vignettes, let selectedVignette else {
             return false
         }
@@ -20,13 +20,15 @@ class MainViewModel: ObservableObject {
         return selectedVignette >= 0 && selectedVignette < vignettes.count
     }
 
-    var countiesLoaded: Bool {
+    public var countiesLoaded: Bool {
         countyVignettes != nil
     }
 
     @Published private var countyVignettes: [CountyVignette]?
 
-    func load() async {
+    public init() {}
+
+    public func load() async {
         let highwayInfo = await errorHandler.handle {
             await api.getHighwayInfo()
         }
@@ -42,7 +44,7 @@ class MainViewModel: ObservableObject {
         }
     }
 
-    func purchaseClicked() {
+    public func purchaseClicked() {
         guard
             let vehicle,
             let vignettes,
@@ -60,7 +62,7 @@ class MainViewModel: ObservableObject {
         )))
     }
 
-    func countyVignettesClicked() {
+    public func countyVignettesClicked() {
         guard
             let vehicle,
             let countyVignettes

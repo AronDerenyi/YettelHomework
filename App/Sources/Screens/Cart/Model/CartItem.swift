@@ -1,9 +1,15 @@
-struct CartItem {
-    let cost: Float
-    let type: CartItemType
+public struct CartItem {
+    
+    public let cost: Float
+    public let type: CartItemType
+
+    public init(cost: Float, type: CartItemType) {
+        self.cost = cost
+        self.type = type
+    }
 }
 
-enum CartItemType {
+public enum CartItemType {
     case country(type: VignetteType, category: String)
     case county(name: String)
 }

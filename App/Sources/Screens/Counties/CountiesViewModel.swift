@@ -1,29 +1,29 @@
 import Combine
 
 @MainActor
-class CountiesViewModel: ObservableObject {
+public class CountiesViewModel: ObservableObject {
 
     @Injected private var navigator: Navigator
 
     private let vehicle: VehicleInfo
     private let countyVignettes: [CountyVignette]
 
-    @Published var counties: [County]
-    var total: Float {
+    @Published public var counties: [County]
+    public var total: Float {
         counties
             .lazy
             .filter(\.selected)
             .map(\.cost)
             .reduce(0.0, +)
     }
-    var nextEnabled: Bool {
+    public var nextEnabled: Bool {
         !counties
             .lazy
             .filter(\.selected)
             .isEmpty
     }
 
-    init(_ params: CountiesParams) {
+    public init(_ params: CountiesParams) {
         self.vehicle = params.vehicle
         self.countyVignettes = params.countyVignettes
         self.counties = params.countyVignettes.map { vignette in
@@ -31,7 +31,7 @@ class CountiesViewModel: ObservableObject {
         }
     }
 
-    func nextClicked() {
+    public func nextClicked() {
         let selectedIds = Set(counties.lazy.filter(\.selected).map(\.id))
         let selectedVignettes = countyVignettes.filter { selectedIds.contains($0.id) }
 

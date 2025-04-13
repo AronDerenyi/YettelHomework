@@ -1,16 +1,17 @@
 import Combine
 
-class CartViewModel: ObservableObject {
+@MainActor
+public class CartViewModel: ObservableObject {
 
-    let plate: String
-    let type: CartType
+    public let plate: String
+    public let type: CartType
 
-    let items: [CartItem]
-    let fee: Float
+    public let items: [CartItem]
+    public let fee: Float
 
-    let total: Float
+    public let total: Float
 
-    @Published var showResult: Bool = false
+    @Published public var showResult: Bool = false
 
     @Injected private var api: API
     @Injected private var navigator: Navigator
@@ -18,7 +19,7 @@ class CartViewModel: ObservableObject {
 
     private let params: CartParams
 
-    init(_ params: CartParams) {
+    public init(_ params: CartParams) {
         self.params = params
         switch params.item {
         case .vignette(let vignette):
@@ -36,7 +37,7 @@ class CartViewModel: ObservableObject {
         }
     }
 
-    func nextClicked() {
+    public func nextClicked() {
         Task {
             let result: ()? = await errorHandler.handle {
                 switch params.item {
@@ -55,11 +56,11 @@ class CartViewModel: ObservableObject {
         }
     }
 
-    func cancelClicked() {
+    public func cancelClicked() {
         navigator.pop()
     }
 
-    func resultDismissed() {
+    public func resultDismissed() {
         if showResult {
             navigator.clear()
             showResult = false

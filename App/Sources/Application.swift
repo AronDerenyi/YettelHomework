@@ -9,9 +9,9 @@ struct Application: App {
     private let errorHandler = AlertErrorHandler()
 
     init() {
-        register(API.self) { ClientAPI() }
-        register(Navigator.self) { [self] in navigator }
-        register(ErrorHandler.self) { [self] in errorHandler }
+        Injection.shared.register(API.self) { ClientAPI() }
+        Injection.shared.register(Navigator.self) { [self] in navigator }
+        Injection.shared.register(ErrorHandler.self) { [self] in errorHandler }
     }
 
     var body: some Scene {

@@ -1,4 +1,4 @@
-enum VignetteType: Equatable, Hashable {
+public enum VignetteType: Equatable, Hashable {
     case day
     case week
     case month

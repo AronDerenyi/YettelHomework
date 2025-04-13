@@ -13,7 +13,7 @@ public struct MainScreen: View {
                 } placeholder: {
                     Spacer()
                         .frame(maxWidth: .infinity)
-                        .frame(height: 120.0)
+                        .frame(height: 72.0)
                 }
                 .background(YettelHomeworkAsset.Assets.surface.swiftUIColor)
                 .cornerRadius(16.0)
@@ -29,7 +29,7 @@ public struct MainScreen: View {
                 } placeholder: {
                     Spacer()
                         .frame(maxWidth: .infinity)
-                        .frame(height: 120.0)
+                        .frame(height: 300.0)
                 }
                 .background(YettelHomeworkAsset.Assets.surface.swiftUIColor)
                 .cornerRadius(16.0)

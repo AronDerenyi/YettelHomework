@@ -2,56 +2,91 @@ import Foundation
 import XCTest
 import YettelHomework
 
+@MainActor
 final class CountiesViewModelTests: XCTestCase {
 
-    @MainActor private func setup() -> (MockNavigator, CountiesViewModel) {
-        let nevigator = MockNavigator()
+    private func setup() -> (TestNavigator, CountiesViewModel) {
+        let nevigator = TestNavigator()
         Injection.shared.register(Navigator.self) { nevigator }
 
         return (
             nevigator,
             CountiesViewModel(.init(
-                vehicle: .init(name: "", plate: ""),
-                countyVignettes: [
-                    .init(id: "", name: "", cost: 0.0, fee: 0.0, vehicleCategory: "")
-                ]
+                vehicle: VEHICLE_INFO,
+                countyVignettes: COUNTY_VIGNETTES
             ))
         )
     }
 
-    @MainActor func test_noneSelected() {
+    func test_noneSelected() {
         let (navigator, viewModel) = setup()
+
+        // Check displayed data
+        XCTAssertEqual(viewModel.total, 0.0)
         XCTAssertEqual(viewModel.nextEnabled, false)
 
+        // Check navigation
         viewModel.nextClicked()
         XCTAssertEqual(navigator.path, [])
     }
 
-    @MainActor func test_firstSelected() {
+    func test_firstSelected() {
         let (navigator, viewModel) = setup()
-        XCTAssertEqual(viewModel.nextEnabled, false)
 
+        // Select first
         viewModel.counties[0].selected = true
+
+        // Check displayed data
+        XCTAssertEqual(viewModel.total, COUNTY_VIGNETTES[0].cost)
         XCTAssertEqual(viewModel.nextEnabled, true)
 
+        // Check navigation
         viewModel.nextClicked()
-        XCTAssertEqual(navigator.path, [.cart(.init(vehicle: .init(name: "", plate: ""), item: .countyVignettes([.init(id: "", name: "", cost: 0.0, fee: 0.0, vehicleCategory: "")])))])
+        XCTAssertEqual(navigator.path, [.cart(.init(
+            vehicle: VEHICLE_INFO,
+            item: .countyVignettes(Array(COUNTY_VIGNETTES[0..<1]))
+        ))])
     }
-}
 
-private class MockNavigator: Navigator {
+    func test_firstFiveSelected() {
+        let (navigator, viewModel) = setup()
 
-    var path: [Route] = []
+        // Select first five
+        for i in 0..<5 {
+            viewModel.counties[i].selected = true
+        }
 
-    func push(_ route: Route) {
-        path.append(route)
+        // Check displayed data
+        XCTAssertEqual(viewModel.total, COUNTY_VIGNETTES[0..<5].map(\.cost).reduce(0.0, +))
+        XCTAssertEqual(viewModel.nextEnabled, true)
+
+        // Check navigation
+        viewModel.nextClicked()
+        XCTAssertEqual(navigator.path, [.cart(.init(
+            vehicle: VEHICLE_INFO,
+            item: .countyVignettes(Array(COUNTY_VIGNETTES[0..<5]))
+        ))])
     }
-    
-    func pop() {
-        path.removeLast()
-    }
-    
-    func clear() {
-        path = []
+
+    func test_firstSelectedAndUnselected() {
+        let (navigator, viewModel) = setup()
+
+        // Select first
+        viewModel.counties[0].selected = true
+
+        // Check displayed data
+        XCTAssertEqual(viewModel.total, COUNTY_VIGNETTES[0].cost)
+        XCTAssertEqual(viewModel.nextEnabled, true)
+
+        // Unselect first
+        viewModel.counties[0].selected = false
+
+        // Check displayed data
+        XCTAssertEqual(viewModel.total, 0.0)
+        XCTAssertEqual(viewModel.nextEnabled, false)
+
+        // Check navigation
+        viewModel.nextClicked()
+        XCTAssertEqual(navigator.path, [])
     }
 }

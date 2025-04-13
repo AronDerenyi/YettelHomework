@@ -239,6 +239,40 @@
         }
       }
     },
+    "counties_alert_dismiss_button" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ok"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Rendben"
+          }
+        }
+      }
+    },
+    "counties_alert_message" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The selected counties are not connected"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "A kiválasztott megyék között nincs közvetlen kapcsolat"
+          }
+        }
+      }
+    },
     "counties_next_button" : {
       "extractionState" : "manual",
       "localizations" : {

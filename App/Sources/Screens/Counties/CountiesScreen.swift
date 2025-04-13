@@ -23,6 +23,11 @@ struct CountiesScreen: View {
         }
         .yettelToolbar(showBackButton: true)
         .background(YettelHomeworkAsset.Assets.surface.swiftUIColor)
+        .alert("counties_alert_message", isPresented: $viewModel.showNeighborAlert) {
+            Button("counties_alert_dismiss_button") {
+                viewModel.showNeighborAlert = false
+            }
+        }
     }
 }
 

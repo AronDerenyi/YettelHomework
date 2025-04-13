@@ -12,16 +12,27 @@ struct MapView: View {
 
             ForEach(counties, id: \.id) { county in
                 if county.selected {
-                    countyImages[county.id]?
+                    let image = COUNTY_IMAGES[county.id]?
                         .resizable()
                         .aspectRatio(contentMode: .fit)
+                        .foregroundStyle(
+                            county.isolated ?
+                            YettelHomeworkAsset.Assets.primary.swiftUIColor :
+                            YettelHomeworkAsset.Assets.accent.swiftUIColor
+                        )
+
+                    if county.isolated {
+                        image.foregroundStyle(.red)
+                    } else {
+                        image
+                    }
                 }
             }
         }
     }
 }
 
-private let countyImages = [
+private let COUNTY_IMAGES = [
     "YEAR_11": YettelHomeworkAsset.Assets.county11.swiftUIImage,
     "YEAR_12": YettelHomeworkAsset.Assets.county12.swiftUIImage,
     "YEAR_13": YettelHomeworkAsset.Assets.county13.swiftUIImage,

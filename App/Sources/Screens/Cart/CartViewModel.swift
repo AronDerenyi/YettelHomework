@@ -12,8 +12,9 @@ class CartViewModel: ObservableObject {
 
     @Published var showResult: Bool = false
 
-    @Injected private var navigator: Navigator
     @Injected private var api: API
+    @Injected private var navigator: Navigator
+    @Injected private var errorHandler: ErrorHandler
 
     private let params: CartParams
 
@@ -37,21 +38,19 @@ class CartViewModel: ObservableObject {
 
     func nextClicked() {
         Task {
-            let result: Result<(), PostError>
-            switch params.item {
-            case .vignette(let vignette):
-                result = await api.postHighwayOrder(vignette: vignette)
-            case .countyVignettes(let countyVignettes):
-                result = await api.postHighwayOrder(countyVignettes: countyVignettes)
+            let result: ()? = await errorHandler.handle {
+                switch params.item {
+                case .vignette(let vignette):
+                    await api.postHighwayOrder(vignette: vignette)
+                case .countyVignettes(let countyVignettes):
+                    await api.postHighwayOrder(countyVignettes: countyVignettes)
+                }
             }
 
-            switch result {
-            case .success:
+            if result != nil {
                 await MainActor.run {
                     showResult = true
                 }
-            case .failure(let error):
-                print(error)
             }
         }
     }

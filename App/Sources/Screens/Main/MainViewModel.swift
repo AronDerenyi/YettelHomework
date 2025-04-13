@@ -3,8 +3,9 @@ import Combine
 @MainActor
 class MainViewModel: ObservableObject {
 
-    @Injected private var navigator: Navigator
     @Injected private var api: API
+    @Injected private var navigator: Navigator
+    @Injected private var errorHandler: ErrorHandler
 
     @Published var vehicle: VehicleInfo?
 
@@ -26,13 +27,15 @@ class MainViewModel: ObservableObject {
     @Published private var countyVignettes: [CountyVignette]?
 
     func load() async {
-        let highwayInfo = await api.getHighwayInfo()
-        let vehicleInfo = await api.getVehicleInfo()
+        let highwayInfo = await errorHandler.handle {
+            await api.getHighwayInfo()
+        }
 
-        if
-            case .success(let highwayInfo) = highwayInfo,
-            case .success(let vehicleInfo) = vehicleInfo
-        {
+        let vehicleInfo = await errorHandler.handle {
+            await api.getVehicleInfo()
+        }
+
+        if let highwayInfo = highwayInfo, let vehicleInfo = vehicleInfo {
             vehicle = vehicleInfo
             vignettes = highwayInfo.vignettes
             countyVignettes = highwayInfo.countyVignettes

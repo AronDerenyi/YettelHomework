@@ -25,7 +25,7 @@ docker-compose up
 ```
 
 parancs indít el. Ha a konténer fut és az alkalmazás is megnyílt XCode-ban akkor
-el lehet indítani, de jelen formályában csak szimulátorban hiszen a konténerizált
+el lehet indítani, de jelen formájában csak szimulátorban hiszen a konténerizált
 szerver localhost-ban fut amit valós készülék nem ér el.
 
 ## Javaslatok
